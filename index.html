@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ramalan Dadu Cinta Eksklusif</title>
+    <title>Dadu Surgawi</title>
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #2b1055 0%, #7597de 100%);
@@ -63,7 +63,7 @@
             display: flex;
             gap: 45px;
             margin: 50px 0;
-            perspective: 1000px; /* Memberikan efek kedalaman 3D ruang */
+            perspective: 1000px;
         }
 
         /* Struktur Kubus Dadu 3D */
@@ -80,18 +80,18 @@
             position: absolute;
             width: 85px;
             height: 85px;
-            background: #fdfdfd;
+            background: #ffffff;
             border-radius: 16px;
             box-shadow: inset 0 0 12px rgba(0,0,0,0.15);
             display: grid;
             grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #dcdcdc;
-            backface-visibility: hidden; /* Mencegah tembus pandang agar bentuk 3D solid */
+            backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
         }
 
-        /* Posisi Sisi-sisi Kubus 3D (Setengah dari lebar dadu = 42.5px) */
+        /* Posisi Sisi-sisi Kubus 3D (Setengah dari 85px = 42.5px) */
         .face-1 { transform: rotateY(0deg) translateZ(42.5px); }
         .face-2 { transform: rotateY(180deg) translateZ(42.5px); }
         .face-3 { transform: rotateY(-90deg) translateZ(42.5px); }
@@ -99,25 +99,51 @@
         .face-5 { transform: rotateX(90deg) translateZ(42.5px); }
         .face-6 { transform: rotateX(-90deg) translateZ(42.5px); }
 
-        /* Titik Dot Dadu Kasino Klasik */
+        /* Titik Dot Dadu Standar */
         .dot {
-            background-color: #222;
+            background-color: #111;
             border-radius: 50%;
             width: 13px;
             height: 13px;
             align-self: center;
             justify-self: center;
             display: none;
-            box-shadow: inset 0 2px 3px rgba(0,0,0,0.5);
+            box-shadow: inset 0 2px 3px rgba(0,0,0,0.4);
         }
 
-        /* Konfigurasi Dot per Angka */
-        .face-1 .dot-5 { display: block; }
-        .face-2 .dot-1, .face-2 .dot-9 { display: block; }
-        .face-3 .dot-1, .face-3 .dot-5, .face-3 .dot-9 { display: block; }
-        .face-4 .dot-1, .face-4 .dot-3, .face-4 .dot-7, .face-4 .dot-9 { display: block; }
-        .face-5 .dot-1, .face-5 .dot-3, .face-5 .dot-5, .face-5 .dot-7, .face-5 .dot-9 { display: block; }
-        .face-6 .dot-1, .face-6 .dot-3, .face-6 .dot-4, .face-6 .dot-6, .face-6 .dot-7, .face-6 .dot-9 { display: block; }
+        /* Konfigurasi Titik Standar Dadu Asli */
+        /* Angka 1: Hanya 1 titik di tengah persis */
+        .face-1 .dot-center { display: block; grid-column: 2; grid-row: 2; }
+
+        /* Angka 2: Pojok kiri atas & kanan bawah */
+        .face-2 .dot-t-l { display: block; grid-column: 1; grid-row: 1; }
+        .face-2 .dot-b-r { display: block; grid-column: 3; grid-row: 3; }
+
+        /* Angka 3: Kiri atas, tengah, kanan bawah */
+        .face-3 .dot-t-l { display: block; grid-column: 1; grid-row: 1; }
+        .face-3 .dot-center { display: block; grid-column: 2; grid-row: 2; }
+        .face-3 .dot-b-r { display: block; grid-column: 3; grid-row: 3; }
+
+        /* Angka 4: Keempat sudut */
+        .face-4 .dot-t-l { display: block; grid-column: 1; grid-row: 1; }
+        .face-4 .dot-t-r { display: block; grid-column: 3; grid-row: 1; }
+        .face-4 .dot-b-l { display: block; grid-column: 1; grid-row: 3; }
+        .face-4 .dot-b-r { display: block; grid-column: 3; grid-row: 3; }
+
+        /* Angka 5: Keempat sudut + tengah */
+        .face-5 .dot-t-l { display: block; grid-column: 1; grid-row: 1; }
+        .face-5 .dot-t-r { display: block; grid-column: 3; grid-row: 1; }
+        .face-5 .dot-center { display: block; grid-column: 2; grid-row: 2; }
+        .face-5 .dot-b-l { display: block; grid-column: 1; grid-row: 3; }
+        .face-5 .dot-b-r { display: block; grid-column: 3; grid-row: 3; }
+
+        /* Angka 6: Tiga di kiri, tiga di kanan */
+        .face-6 .dot-t-l { display: block; grid-column: 1; grid-row: 1; }
+        .face-6 .dot-m-l { display: block; grid-column: 1; grid-row: 2; }
+        .face-6 .dot-b-l { display: block; grid-column: 1; grid-row: 3; }
+        .face-6 .dot-t-r { display: block; grid-column: 3; grid-row: 1; }
+        .face-6 .dot-m-r { display: block; grid-column: 3; grid-row: 2; }
+        .face-6 .dot-b-r { display: block; grid-column: 3; grid-row: 3; }
 
         /* Tombol Lempar Eksklusif */
         .roll-btn {
@@ -243,43 +269,43 @@
 <body>
 
     <header>
-        <h1>✨ Oracle Dadu Cinta ✨</h1>
-        <p class="subtitle">Ungkap misteri asmara melalui lemparan sakral</p>
+        <h1>✨ mendadu ✨</h1>
+        <p class="subtitle">Ungkap misteri </p>
     </header>
 
     <div class="game-container">
         <div class="dice-board">
             <!-- Dadu 1 -->
             <div class="dice" id="dice1">
-                <div class="face face-1"><div class="dot dot-5"></div></div>
-                <div class="face face-2"><div class="dot dot-1"></div><div class="dot dot-9"></div></div>
-                <div class="face face-3"><div class="dot dot-1"></div><div class="dot dot-5"></div><div class="dot dot-9"></div></div>
-                <div class="face face-4"><div class="dot dot-1"></div><div class="dot dot-3"></div><div class="dot dot-7"></div><div class="dot dot-9"></div></div>
-                <div class="face face-5"><div class="dot dot-1"></div><div class="dot dot-3"></div><div class="dot dot-5"></div><div class="dot dot-7"></div><div class="dot dot-9"></div></div>
-                <div class="face face-6"><div class="dot dot-1"></div><div class="dot dot-3"></div><div class="dot dot-4"></div><div class="dot dot-6"></div><div class="dot dot-7"></div><div class="dot dot-9"></div></div>
+                <div class="face face-1"><div class="dot dot-center"></div></div>
+                <div class="face face-2"><div class="dot dot-t-l"></div><div class="dot dot-b-r"></div></div>
+                <div class="face face-3"><div class="dot dot-t-l"></div><div class="dot dot-center"></div><div class="dot dot-b-r"></div></div>
+                <div class="face face-4"><div class="dot dot-t-l"></div><div class="dot dot-t-r"></div><div class="dot dot-b-l"></div><div class="dot dot-b-r"></div></div>
+                <div class="face face-5"><div class="dot dot-t-l"></div><div class="dot dot-t-r"></div><div class="dot dot-center"></div><div class="dot dot-b-l"></div><div class="dot dot-b-r"></div></div>
+                <div class="face face-6"><div class="dot dot-t-l"></div><div class="dot dot-m-l"></div><div class="dot dot-b-l"></div><div class="dot dot-t-r"></div><div class="dot dot-m-r"></div><div class="dot dot-b-r"></div></div>
             </div>
 
             <!-- Dadu 2 -->
             <div class="dice" id="dice2">
-                <div class="face face-1"><div class="dot dot-5"></div></div>
-                <div class="face face-2"><div class="dot dot-1"></div><div class="dot dot-9"></div></div>
-                <div class="face face-3"><div class="dot dot-1"></div><div class="dot dot-5"></div><div class="dot dot-9"></div></div>
-                <div class="face face-4"><div class="dot dot-1"></div><div class="dot dot-3"></div><div class="dot dot-7"></div><div class="dot dot-9"></div></div>
-                <div class="face face-5"><div class="dot dot-1"></div><div class="dot dot-3"></div><div class="dot dot-5"></div><div class="dot dot-7"></div><div class="dot dot-9"></div></div>
-                <div class="face face-6"><div class="dot dot-1"></div><div class="dot dot-3"></div><div class="dot dot-4"></div><div class="dot dot-6"></div><div class="dot dot-7"></div><div class="dot dot-9"></div></div>
+                <div class="face face-1"><div class="dot dot-center"></div></div>
+                <div class="face face-2"><div class="dot dot-t-l"></div><div class="dot dot-b-r"></div></div>
+                <div class="face face-3"><div class="dot dot-t-l"></div><div class="dot dot-center"></div><div class="dot dot-b-r"></div></div>
+                <div class="face face-4"><div class="dot dot-t-l"></div><div class="dot dot-t-r"></div><div class="dot dot-b-l"></div><div class="dot dot-b-r"></div></div>
+                <div class="face face-5"><div class="dot dot-t-l"></div><div class="dot dot-t-r"></div><div class="dot dot-center"></div><div class="dot dot-b-l"></div><div class="dot dot-b-r"></div></div>
+                <div class="face face-6"><div class="dot dot-t-l"></div><div class="dot dot-m-l"></div><div class="dot dot-b-l"></div><div class="dot dot-t-r"></div><div class="dot dot-m-r"></div><div class="dot dot-b-r"></div></div>
             </div>
         </div>
 
-        <button class="roll-btn" id="rollBtn" onclick="rollDice3D()">Lempar Dadu ✨</button>
+        <button class="roll-btn" id="rollBtn" onclick="rollDice3D()">kocok sini ✨</button>
     </div>
 
     <!-- Modal Pop-up Eksklusif -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-card">
             <div id="modalBadgeContainer"></div>
-            <h3 class="modal-title" id="modalTitle">Hasil Ramalan</h3>
+            <h3 class="modal-title" id="modalTitle">gimana hasilnya?</h3>
             <p class="modal-message" id="modalMessage">Menyusun takdir cinta...</p>
-            <button class="close-btn" onclick="closeModal()">Lanjutkan Perjalanan</button>
+            <button class="close-btn" onclick="closeModal()">kocok ulang💦💦💦</button>
         </div>
     </div>
 
@@ -328,7 +354,6 @@
             const val1 = Math.floor(Math.random() * 6) + 1;
             const val2 = Math.floor(Math.random() * 6) + 1;
 
-            // Putaran tambahan dalam sumbu X dan Y agar kubus berputar secara acak 3D penuh
             const extraRotX = 360 * (Math.floor(Math.random() * 2) + 3);
             const extraRotY = 360 * (Math.floor(Math.random() * 2) + 3);
 
